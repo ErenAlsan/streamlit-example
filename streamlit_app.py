@@ -18,4 +18,8 @@ if st.button('Can You Get a Loan?'):
 
     # Tahmin sonucunu ekrana yazdırma
     st.subheader('Result:')
-    # st.write(prediction)
+    prediction = 1  # Örnek olarak 1 veya 0 şeklinde bir tahmin sonucu
+    if prediction == 1:
+        st.write("Congratulations, you can get a loan!")
+    else:
+        st.write("Sorry, you are not eligible to get a loan.")

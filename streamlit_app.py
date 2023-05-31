@@ -1,38 +1,26 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import pandas as pd
+import joblib
 
-"""
-# Welcome to Streamlit!
+# Modeli yükleme
+model = joblib.load('model.pkl')
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# Streamlit uygulamasının başlığı
+st.title('Model Sonuçları')
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Kullanıcıdan girişleri alma
+input_data = []
+for i in range(8):
+    input_value = st.text_input(f'TAE Input {i+1}')
+    input_data.append(input_value)
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Giriş verilerini DataFrame'e dönüştürme
+input_df = pd.DataFrame([input_data], columns=['TAE Input 1', 'TAE Input 2', 'TAE Input 3', 'TAE Input 4',
+                                               'TAE Input 5', 'TAE Input 6', 'TAE Input 7', 'TAE Input 8'])
 
+# Modeli kullanarak tahmin yapma
+prediction = model.predict(input_df)
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+# Sonucu ekrana yazdırma
+st.subheader('Tahmin Sonucu:')
+st.write(prediction)

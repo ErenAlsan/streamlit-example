@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Streamlit uygulamasının başlığı
-st.title('Model Sonuçları')
+st.title('Credit Approval Prediction App')
 
 # Kullanıcıdan girişleri alma
 input_data = []
@@ -10,11 +10,11 @@ for i in range(8):
     input_data.append(input_value)
 
 # Tahmin yapma butonu
-if st.button('Tahmin Yap'):
+if st.button('Can You get a loan?'):
     # Burada tahmin yapma işlemini gerçekleştirebilirsiniz
     # Örnek olarak, giriş verilerini kullanarak tahmin sonucunu hesaplayabilirsiniz
     # prediction = model.predict(input_data)
 
     # Tahmin sonucunu ekrana yazdırma
-    st.subheader('Tahmin Sonucu:')
+    st.subheader('Result:')
     # st.write(prediction)
